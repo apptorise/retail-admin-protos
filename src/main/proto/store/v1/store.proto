@@ -9,6 +9,8 @@ option java_outer_classname = "StoreProto";
 service StoreService {
   rpc CreateStore (CreateStoreRequest) returns (StoreResponse);
   rpc GetStore (GetStoreRequest) returns (StoreResponse);
+  rpc ListStores (ListStoresRequest) returns (ListStoresResponse);
+  rpc DeleteStore (DeleteStoreRequest) returns (DeleteStoreResponse);
 }
 
 message Store {
@@ -30,4 +32,18 @@ message GetStoreRequest {
 
 message StoreResponse {
   Store store = 1;
+}
+
+message ListStoresRequest {}
+
+message ListStoresResponse {
+  repeated Store stores = 1;
+}
+
+message DeleteStoreRequest {
+  int64 id = 1;
+}
+
+message DeleteStoreResponse {
+  bool success = 1;
 }
