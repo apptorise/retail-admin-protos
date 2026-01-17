@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package retail.stores.v1;
+
+option java_multiple_files = true;
+option java_package = "com.apptorise.retail.admin.protos.v1";
+option java_outer_classname = "StoreProto";
+
+service StoreService {
+  rpc CreateStore (CreateStoreRequest) returns (StoreResponse);
+  rpc GetStore (GetStoreRequest) returns (StoreResponse);
+}
+
+message Store {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  string created_at = 4;
+  string last_updated_at = 5;
+}
+
+message CreateStoreRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message GetStoreRequest {
+  int64 id = 1;
+}
+
+message StoreResponse {
+  Store store = 1;
+}
