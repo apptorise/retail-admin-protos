@@ -12,3 +12,7 @@ message AdminUser {
   string email = 3;
   bool is_active = 4;
 }
+
+service AdminService {
+  rpc SaveAdminUser (AdminUser) returns (AdminUser);
+}
