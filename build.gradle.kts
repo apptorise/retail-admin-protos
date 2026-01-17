@@ -1,47 +1,43 @@
+import com.google.protobuf.gradle.*
+
 plugins {
     kotlin("jvm") version "2.2.21"
     `maven-publish`
     id("com.google.protobuf") version "0.9.4"
 }
 
-group = "com.apptorise.retail.core.api"
-version = "1.0-SNAPSHOT"
+group = "com.github.leroyramaphoko"
+version = "1.0.3" // Bumping to 1.0.3 forces JitPack to rebuild
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("com.google.protobuf:protobuf-java:3.25.1")
-    implementation("com.google.protobuf:protobuf-kotlin:3.25.1")
-    testImplementation(kotlin("test"))
+    // These must be 'api' so the retail-admin service inherits them
+    api("com.google.protobuf:protobuf-kotlin:3.25.3")
+    api("io.grpc:grpc-kotlin-stub:1.4.1")
+    api("io.grpc:grpc-protobuf:1.62.2")
 }
 
-kotlin {
-    jvmToolchain(21)
-}
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
+kotlin { jvmToolchain(21) }
+java { withSourcesJar() }
 
 protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.25.1"
+    protoc { artifact = "com.google.protobuf:protoc:3.25.3" }
+    plugins {
+        id("grpc") { artifact = "io.grpc:protoc-gen-grpc-java:1.62.2" }
+        id("grpckt") { artifact = "io.grpc:protoc-gen-grpc-kotlin:1.4.1:jdk8@jar" }
     }
     generateProtoTasks {
         all().forEach { task ->
-            task.builtins {
-                // Java is enabled by default, no need to call 'id' or 'create'
-                create("kotlin")
+            task.plugins {
+                id("grpc")
+                id("grpckt") // CREATES AdminServiceGrpcKt
             }
+            task.builtins { create("kotlin") }
         }
     }
-}
-
-tasks.test {
-    useJUnitPlatform()
 }
 
 publishing {
@@ -49,18 +45,6 @@ publishing {
         create<MavenPublication>("maven") {
             from(components["java"])
             artifactId = "retail-admin-protos"
-
-            pom {
-                name.set("Retail Admin Protos")
-                description.set("Protocol Buffer library for retail administration")
-                url.set("https://github.com/apptorise/retail-admin-protos")
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-            }
         }
     }
 }
