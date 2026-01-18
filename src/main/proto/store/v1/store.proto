@@ -17,8 +17,8 @@ message Store {
   int64 id = 1;
   string name = 2;
   string description = 3;
-  string createdAt = 4;
-  string lastUpdatedAt = 5;
+  string createdAt = 4 [json_name = "createdAt"];
+  string lastUpdatedAt = 5 [json_name = "lastUpdatedAt"];
 }
 
 message CreateStoreRequest {
