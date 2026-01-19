@@ -7,46 +7,21 @@ plugins {
 }
 
 group = "com.github.leroyramaphoko"
-version = "1.0.23" // incremented version
+version = "1.0.24"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    // Core protobuf + gRPC
     api("com.google.protobuf:protobuf-kotlin:3.25.3")
     api("io.grpc:grpc-kotlin-stub:1.4.1")
     api("io.grpc:grpc-protobuf:1.62.2")
-
-    // Annotation API (needed for generated code)
     api("javax.annotation:javax.annotation-api:1.3.2")
 }
 
 kotlin {
     jvmToolchain(21)
-}
-
-sourceSets {
-    main {
-        // This is the crucial part: tell the Kotlin compiler where the generated code is
-        kotlin.srcDirs(
-            "build/generated/source/proto/main/grpckt",
-            "build/generated/source/proto/main/kotlin"
-        )
-        java.srcDirs(
-            "build/generated/source/proto/main/java",
-            "build/generated/source/proto/main/grpc"
-        )
-    }
-}
-
-tasks.withType<Jar> {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
-java {
-    withSourcesJar()
 }
 
 protobuf {
@@ -63,12 +38,10 @@ protobuf {
     }
     generateProtoTasks {
         all().forEach { task ->
-            // Generate Kotlin, gRPC Java, and gRPC Kotlin stubs
             task.plugins {
                 id("grpc")
                 id("grpckt")
             }
-            // Generate lite Kotlin stubs for Android-friendly usage
             task.builtins {
                 id("kotlin") {
                     option("lite")
@@ -78,12 +51,34 @@ protobuf {
     }
 }
 
-// Ensure proto generation happens before packaging/publishing
-tasks.named("build") {
+sourceSets {
+    main {
+        kotlin {
+            srcDirs(
+                "build/generated/source/proto/main/grpckt",
+                "build/generated/source/proto/main/kotlin"
+            )
+        }
+        java {
+            srcDirs(
+                "build/generated/source/proto/main/java",
+                "build/generated/source/proto/main/grpc"
+            )
+        }
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     dependsOn("generateProto")
 }
-tasks.named("publishToMavenLocal") {
-    dependsOn("generateProto")
+
+tasks.withType<Jar> {
+    from(sourceSets.main.get().output)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+java {
+    withSourcesJar()
 }
 
 publishing {
