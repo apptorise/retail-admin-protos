@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.leroyramaphoko"
-version = "1.0.17"
+version = "1.0.18"
 
 repositories {
     mavenCentral()
@@ -33,6 +33,10 @@ sourceSets {
             srcDirs("build/generated/source/proto/main/kotlin")
         }
     }
+}
+
+tasks.withType<Jar> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 java {
