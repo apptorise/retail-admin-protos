@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package retail.auth.v1;
 
+import "user.proto";
+
 option java_multiple_files = true;
 option java_package = "com.apptorise.retail.auth.v1";
 option java_outer_classname = "AuthProto";
@@ -10,7 +12,7 @@ service AuthService {
   rpc LoginWithEmail (LoginRequest) returns (AuthResponse);
   rpc LoginWithGoogle (GoogleLoginRequest) returns (AuthResponse);
   rpc RefreshToken (RefreshTokenRequest) returns (AuthResponse);
-  rpc Logout (LogoutRequest) returns (LogoutResponse);
+  rpc Logout (LogoutRequest) returns (AuthResponse);
 }
 
 message LoginRequest {
@@ -31,14 +33,7 @@ message AuthResponse {
   string refresh_token = 2;
   int64 expires_in = 3;
   string token_type = 4;
-  UserSummary user = 5;
-}
-
-message UserSummary {
-  string id = 1;
-  string email = 2;
-  string name = 3;
-  string picture_url = 4;
+  retail.users.v1.UserSummary user = 5;
 }
 
 message LogoutRequest {
