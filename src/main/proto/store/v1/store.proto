@@ -19,8 +19,9 @@ service StoreService {
 message StoreSummary {
   int64 id = 1;
   string name = 2;
-  retail.users.v1.UserSummary owner = 3;
-  bool is_active = 4;
+  string merchant_id = 3;
+  retail.users.v1.UserSummary owner = 4;
+  bool is_active = 5;
 }
 
 message Store {
