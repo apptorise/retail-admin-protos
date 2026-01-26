@@ -3,6 +3,7 @@ syntax = "proto3";
 package retail.auth.v1;
 
 import "user/v1/user.proto";
+import "google/protobuf/empty.proto";
 
 option java_multiple_files = true;
 option java_package = "com.apptorise.retail.auth.v1";
@@ -12,7 +13,7 @@ service AuthService {
   rpc LoginWithEmail (LoginRequest) returns (AuthResponse);
   rpc LoginWithGoogle (GoogleLoginRequest) returns (AuthResponse);
   rpc RefreshToken (RefreshTokenRequest) returns (AuthResponse);
-  rpc Logout (LogoutRequest) returns (AuthResponse);
+  rpc Logout (LogoutRequest) returns (google.protobuf.Empty);
 }
 
 message LoginRequest {
@@ -38,8 +39,4 @@ message AuthResponse {
 
 message LogoutRequest {
   string refresh_token = 1;
-}
-
-message LogoutResponse {
-  bool success = 1;
 }
