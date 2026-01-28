@@ -19,6 +19,7 @@ service StoreService {
   rpc ListStoreRoles (ListStoreRolesRequest) returns (ListStoreRolesResponse);
   rpc InviteMember (InviteMemberRequest) returns (StoreInvitation);
   rpc ListInvitations (ListInvitationsRequest) returns (ListInvitationsResponse);
+  rpc ResendInvitation (ResendInvitationRequest) returns (StoreInvitation);
   rpc ListMembers (ListMembersRequest) returns (ListMembersResponse);
   rpc RemoveMember (RemoveMemberRequest) returns (DeleteStoreResponse);
 }
@@ -47,6 +48,7 @@ message StoreInvitation {
   retail.common.v1.StoreRole role = 4;
   string status = 5;
   google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp expires_at = 7;
 }
 
 message StoreRoleOption {
@@ -73,6 +75,10 @@ message ListInvitationsRequest {
 
 message ListInvitationsResponse {
   repeated StoreInvitation invitations = 1;
+}
+
+message ResendInvitationRequest {
+  int64 id = 1;
 }
 
 message ListMembersRequest {

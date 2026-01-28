@@ -7,16 +7,16 @@ plugins {
 }
 
 group = "com.github.leroyramaphoko"
-version = "1.0.40"
+version = "1.0.41"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    api("com.google.protobuf:protobuf-kotlin:3.25.3")
+    api("com.google.protobuf:protobuf-kotlin:3.25.5")
     api("io.grpc:grpc-kotlin-stub:1.4.1")
-    api("io.grpc:grpc-protobuf:1.62.2")
+    api("io.grpc:grpc-protobuf:1.69.0")
     api("javax.annotation:javax.annotation-api:1.3.2")
 }
 
@@ -29,9 +29,9 @@ java {
 }
 
 protobuf {
-    protoc { artifact = "com.google.protobuf:protoc:3.25.3" }
+    protoc { artifact = "com.google.protobuf:protoc:3.25.5" }
     plugins {
-        id("grpc") { artifact = "io.grpc:protoc-gen-grpc-java:1.62.2" }
+        id("grpc") { artifact = "io.grpc:protoc-gen-grpc-java:1.69.0" }
         id("grpckt") { artifact = "io.grpc:protoc-gen-grpc-kotlin:1.4.1:jdk8@jar" }
     }
     generateProtoTasks {
