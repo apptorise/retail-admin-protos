@@ -7,17 +7,21 @@ plugins {
 }
 
 group = "com.github.leroyramaphoko"
-version = "1.0.49"
+version = "1.0.50"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    // Protos & gRPC
     api("com.google.protobuf:protobuf-kotlin:3.25.5")
     api("io.grpc:grpc-kotlin-stub:1.4.1")
     api("io.grpc:grpc-protobuf:1.69.0")
     api("javax.annotation:javax.annotation-api:1.3.2")
+
+    // Missing Coroutines dependency for gRPC Flow support
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
 }
 
 kotlin {
@@ -41,7 +45,7 @@ protobuf {
                 id("grpckt")
             }
             task.builtins {
-                create("kotlin")
+                id("kotlin")
             }
         }
     }
