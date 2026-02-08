@@ -12,9 +12,9 @@ option java_outer_classname = "StoreProto";
 
 service StoreService {
   rpc CreateStore (stream CreateStoreRequest) returns (StoreResponse);
-
   rpc GetStore (GetStoreRequest) returns (StoreDetailResponse);
   rpc ListStores (ListStoresRequest) returns (ListStoresResponse);
+  rpc ListMyStores (ListMyStoresRequest) returns (ListStoresResponse);
   rpc DeleteStore (DeleteStoreRequest) returns (DeleteStoreResponse);
 
   rpc ListStoreRoles (ListStoreRolesRequest) returns (ListStoreRolesResponse);
@@ -142,10 +142,19 @@ message StoreDetailResponse {
   Store store = 1;
 }
 
-message ListStoresRequest {}
+message ListStoresRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message ListMyStoresRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
 
 message ListStoresResponse {
   repeated StoreSummary stores = 1;
+  string next_page_token = 2;
 }
 
 message DeleteStoreRequest {
