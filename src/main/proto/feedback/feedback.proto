@@ -10,29 +10,31 @@ option java_package = "com.apptorise.retail.admin.protos.v1";
 option java_outer_classname = "FeedbackProto";
 
 service FeedbackService {
-  // Handles both rated reviews and general text feedback
+  rpc ListFeedbackCategories (ListFeedbackCategoriesRequest) returns (ListFeedbackCategoriesResponse);
   rpc SubmitFeedback (SubmitFeedbackRequest) returns (SubmitFeedbackResponse);
 }
 
-enum FeedbackCategory {
-  FEEDBACK_CATEGORY_UNSPECIFIED = 0;
-  FEEDBACK_CATEGORY_BUG = 1;
-  FEEDBACK_CATEGORY_FEATURE_REQUEST = 2;
-  FEEDBACK_CATEGORY_USABILITY = 3;
-  FEEDBACK_CATEGORY_GENERAL = 4;
+message FeedbackCategoryOption {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message ListFeedbackCategoriesRequest {}
+
+message ListFeedbackCategoriesResponse {
+  repeated FeedbackCategoryOption categories = 1;
 }
 
 message SubmitFeedbackRequest {
-  // Use 0 if the user is providing feedback without a rating
   int32 rating = 1;
   string message = 2;
-  FeedbackCategory category = 3;
+  string category_id = 3;
   int64 store_id = 4;
 }
 
 message SubmitFeedbackResponse {
   bool success = 1;
   string feedback_id = 2;
-  // Backend can hint if the app should now prompt for a Play Store review
   bool should_prompt_store_review = 3;
 }
