@@ -24,6 +24,7 @@ message UserSummary {
   string email = 4;
   string avatar_url = 5;
   string role = 6;
+  google.protobuf.Timestamp created_at = 7;
 }
 
 message StaffMember {
