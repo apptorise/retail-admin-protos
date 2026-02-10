@@ -4,6 +4,8 @@ package retail.users.v1;
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
+import "common/v1/app_roles.proto";
+import "common/v1/store_roles.proto";
 
 option java_multiple_files = true;
 option java_package = "com.apptorise.retail.admin.protos.v1";
@@ -17,32 +19,45 @@ service UserService {
   rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty);
 }
 
+message StoreAssignment {
+  string store_id = 1;
+  string store_name = 2;
+  string department = 3;
+  string staff_number = 4;
+  retail.common.v1.StoreRole role_at_store = 5;
+}
+
+message StaffProfile {
+  string employee_id = 1;
+  repeated StoreAssignment assignments = 2;
+}
+
 message UserSummary {
   string id = 1;
   string first_name = 2;
   string last_name = 3;
   string email = 4;
   string avatar_url = 5;
-  string role = 6;
+  retail.common.v1.AppRole global_role = 6;
   google.protobuf.Timestamp created_at = 7;
-}
-
-message StaffMember {
-  string employee_id = 1;
-  string department = 2;
 }
 
 message User {
   string id = 1;
-  UserSummary summary = 2;
-  string phone_number = 3;
-  string address = 4;
-  google.protobuf.Timestamp created_at = 5;
-  google.protobuf.Timestamp last_login_at = 6;
-  bool is_active = 7;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string avatar_url = 5;
+  string phone_number = 6;
+  string address = 7;
+  bool is_active = 8;
+  retail.common.v1.AppRole global_role = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp last_login_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
 
   oneof account_details {
-    StaffMember staff = 8;
+    StaffProfile staff = 13;
   }
 }
 
@@ -50,9 +65,13 @@ message CreateUserRequest {
   string first_name = 1;
   string last_name = 2;
   string email = 3;
-  string role = 4;
-  string department = 5;
-  optional string avatar_url = 6;
+  string phone_number = 4;
+  retail.common.v1.AppRole global_role = 5;
+  string initial_store_id = 6;
+  string initial_department = 7;
+  string initial_staff_number = 8;
+  retail.common.v1.StoreRole initial_store_role = 9;
+  optional string avatar_url = 10;
 }
 
 message GetUserRequest {
@@ -83,7 +102,7 @@ message UpdateUserRequest {
   string last_name = 3;
   string phone_number = 4;
   string address = 5;
-  string department = 6;
+  retail.common.v1.AppRole global_role = 6;
 }
 
 message DeleteUserRequest {
