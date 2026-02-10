@@ -67,11 +67,7 @@ message CreateUserRequest {
   string email = 3;
   string phone_number = 4;
   retail.common.v1.AppRole global_role = 5;
-  string initial_store_id = 6;
-  string initial_department = 7;
-  string initial_staff_number = 8;
-  retail.common.v1.StoreRole initial_store_role = 9;
-  optional string avatar_url = 10;
+  optional string avatar_url = 6;
 }
 
 message GetUserRequest {

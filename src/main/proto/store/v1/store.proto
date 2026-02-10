@@ -50,6 +50,7 @@ message StoreSummary {
   bool is_active = 5;
   string country_code = 6;
   string image_url = 7;
+  string owner_id = 8; // Added for easier client-side permission checks
 }
 
 message StoreMember {
