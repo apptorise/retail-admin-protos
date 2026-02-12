@@ -40,6 +40,7 @@ message UserSummary {
   string avatar_url = 5;
   retail.common.v1.AppRole global_role = 6;
   google.protobuf.Timestamp created_at = 7;
+  int64 default_store_id = 8;
 }
 
 message User {
@@ -55,9 +56,10 @@ message User {
   google.protobuf.Timestamp created_at = 10;
   google.protobuf.Timestamp last_login_at = 11;
   google.protobuf.Timestamp updated_at = 12;
+  int64 default_store_id = 13;
 
   oneof account_details {
-    StaffProfile staff = 13;
+    StaffProfile staff = 14;
   }
 }
 
@@ -68,6 +70,7 @@ message CreateUserRequest {
   string phone_number = 4;
   retail.common.v1.AppRole global_role = 5;
   optional string avatar_url = 6;
+  optional int64 default_store_id = 7;
 }
 
 message GetUserRequest {
@@ -99,6 +102,7 @@ message UpdateUserRequest {
   string phone_number = 4;
   string address = 5;
   retail.common.v1.AppRole global_role = 6;
+  optional int64 default_store_id = 7;
 }
 
 message DeleteUserRequest {
