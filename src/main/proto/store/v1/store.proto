@@ -28,12 +28,15 @@ service StoreService {
 
   rpc ListMyInvitations (ListMyInvitationsRequest) returns (ListInvitationsResponse);
   rpc RespondToInvitation (RespondToInvitationRequest) returns (RespondToInvitationResponse);
+
+  rpc SetDefaultStore (SetDefaultStoreRequest) returns (SetDefaultStoreResponse);
 }
 
 message CreateStoreRequest {
   oneof data {
     StoreMetadata metadata = 1;
-    bytes image_chunk = 2;
+    bytes logo_chunk = 2;
+    bytes cover_chunk = 3;
   }
 }
 
@@ -49,8 +52,10 @@ message StoreSummary {
   retail.users.v1.UserSummary owner = 4;
   bool is_active = 5;
   string country_code = 6;
-  string image_url = 7;
-  string owner_id = 8; // Added for easier client-side permission checks
+  string logo_url = 7;
+  string cover_url = 8;
+  string owner_id = 9;
+  bool is_default = 10;
 }
 
 message StoreMember {
@@ -142,6 +147,7 @@ message Store {
   string description = 3;
   google.protobuf.Timestamp created_at = 4;
   google.protobuf.Timestamp last_updated_at = 5;
+  int32 items_count = 6;
 }
 
 message GetStoreRequest {
@@ -176,5 +182,13 @@ message DeleteStoreRequest {
 }
 
 message DeleteStoreResponse {
+  bool success = 1;
+}
+
+message SetDefaultStoreRequest {
+  int64 store_id = 1;
+}
+
+message SetDefaultStoreResponse {
   bool success = 1;
 }
