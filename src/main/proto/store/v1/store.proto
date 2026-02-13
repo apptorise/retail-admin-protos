@@ -56,6 +56,7 @@ message StoreSummary {
   string cover_url = 8;
   string owner_id = 9;
   bool is_default = 10;
+  bool is_owner = 11;
 }
 
 message StoreMember {
