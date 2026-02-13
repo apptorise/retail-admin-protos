@@ -30,6 +30,15 @@ service StoreService {
   rpc RespondToInvitation (RespondToInvitationRequest) returns (RespondToInvitationResponse);
 
   rpc SetDefaultStore (SetDefaultStoreRequest) returns (SetDefaultStoreResponse);
+  rpc CheckStoreNameAvailable (CheckStoreNameRequest) returns (CheckStoreNameResponse);
+}
+
+message CheckStoreNameRequest {
+  string name = 1;
+}
+
+message CheckStoreNameResponse {
+  bool available = 1;
 }
 
 message CreateStoreRequest {
