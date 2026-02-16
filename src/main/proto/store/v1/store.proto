@@ -33,6 +33,13 @@ service StoreService {
   rpc CheckStoreNameAvailable (CheckStoreNameRequest) returns (CheckStoreNameResponse);
 }
 
+message StoreTargets {
+  double daily = 1;
+  double weekly = 2;
+  double monthly = 3;
+  double yearly = 4;
+}
+
 message CheckStoreNameRequest {
   string name = 1;
 }
@@ -52,6 +59,7 @@ message CreateStoreRequest {
 message StoreMetadata {
   string name = 1;
   string description = 2;
+  StoreTargets targets = 3;
 }
 
 message StoreSummary {
@@ -66,6 +74,7 @@ message StoreSummary {
   string owner_id = 9;
   bool is_default = 10;
   bool is_owner = 11;
+  StoreTargets targets = 12;
 }
 
 message StoreMember {
