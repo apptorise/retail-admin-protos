@@ -31,6 +31,8 @@ service StoreService {
 
   rpc SetDefaultStore (SetDefaultStoreRequest) returns (SetDefaultStoreResponse);
   rpc CheckStoreNameAvailable (CheckStoreNameRequest) returns (CheckStoreNameResponse);
+
+  rpc UpdateStoreTargets (UpdateStoreTargetsRequest) returns (StoreDetailResponse);
 }
 
 message StoreTargets {
@@ -210,4 +212,9 @@ message SetDefaultStoreRequest {
 
 message SetDefaultStoreResponse {
   bool success = 1;
+}
+
+message UpdateStoreTargetsRequest {
+  int64 store_id = 1;
+  StoreTargets targets = 2;
 }
