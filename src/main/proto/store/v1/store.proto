@@ -27,6 +27,7 @@ service StoreService {
   rpc RemoveMember (RemoveMemberRequest) returns (DeleteStoreResponse);
 
   rpc ListMyInvitations (ListMyInvitationsRequest) returns (ListInvitationsResponse);
+  rpc GetInvitationReview (GetInvitationReviewRequest) returns (StoreInvitation);
   rpc RespondToInvitation (RespondToInvitationRequest) returns (RespondToInvitationResponse);
 
   rpc SetDefaultStore (SetDefaultStoreRequest) returns (SetDefaultStoreResponse);
@@ -135,6 +136,10 @@ message ResendInvitationRequest {
 }
 
 message ListMyInvitationsRequest {}
+
+message GetInvitationReviewRequest {
+  int64 id = 1;
+}
 
 message RespondToInvitationRequest {
   int64 invitation_id = 1;
