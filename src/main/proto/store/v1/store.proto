@@ -34,6 +34,20 @@ service StoreService {
   rpc CheckStoreNameAvailable (CheckStoreNameRequest) returns (CheckStoreNameResponse);
 
   rpc UpdateStoreTargets (UpdateStoreTargetsRequest) returns (StoreDetailResponse);
+
+  rpc ListStoreTerminationReasons (ListStoreTerminationReasonsRequest) returns (ListStoreTerminationReasonsResponse);
+}
+
+message StoreTerminationReason {
+  int32 id = 1;
+  string label = 2;
+  string description = 3;
+}
+
+message ListStoreTerminationReasonsRequest {}
+
+message ListStoreTerminationReasonsResponse {
+  repeated StoreTerminationReason reasons = 1;
 }
 
 message StoreTargets {
@@ -207,6 +221,7 @@ message ListStoresResponse {
 
 message DeleteStoreRequest {
   int64 id = 1;
+  int32 reason_id = 2;
 }
 
 message DeleteStoreResponse {
