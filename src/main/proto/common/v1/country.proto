@@ -31,9 +31,7 @@ message Country {
   google.protobuf.Timestamp created_at = 6;
 }
 
-message ListCountriesRequest {
-  // Optional filtering or pagination can be added here
-}
+message ListCountriesRequest {}
 
 message ListCountriesResponse {
   repeated Country countries = 1;
