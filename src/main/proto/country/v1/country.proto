@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package retail.common.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "com.apptorise.retail.admin.protos.v1";
+option java_outer_classname = "CountryProto";
+
+service CountryService {
+  rpc ListCountries (ListCountriesRequest) returns (ListCountriesResponse);
+  rpc GetCountry (GetCountryRequest) returns (Country);
+  rpc GetCountryByIsoCode (GetCountryByIsoCodeRequest) returns (Country);
+}
+
+message Currency {
+  int64 id = 1;
+  string code = 2;
+  string name = 3;
+  string symbol = 4;
+  bool is_main = 5;
+}
+
+message Country {
+  int64 id = 1;
+  string name = 2;
+  string iso_code = 3;
+  repeated string dialing_codes = 4;
+  repeated Currency currencies = 5;
+  google.protobuf.Timestamp created_at = 6;
+}
+
+message ListCountriesRequest {
+  // Optional filtering or pagination can be added here
+}
+
+message ListCountriesResponse {
+  repeated Country countries = 1;
+}
+
+message GetCountryRequest {
+  int64 id = 1;
+}
+
+message GetCountryByIsoCodeRequest {
+  string iso_code = 1;
+}
