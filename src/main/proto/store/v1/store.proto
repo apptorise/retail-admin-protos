@@ -77,7 +77,9 @@ message StoreMetadata {
   string name = 1;
   string description = 2;
   StoreTargets targets = 3;
-  string currency_code = 4;
+  string country_iso_code = 4;
+  int64 currency_id = 5;
+  string address = 6;
 }
 
 message StoreSummary {
@@ -86,13 +88,15 @@ message StoreSummary {
   string merchant_id = 3;
   retail.users.v1.UserSummary owner = 4;
   bool is_active = 5;
-  string country_code = 6;
+  string country_iso_code = 6;
   string logo_url = 7;
   string cover_url = 8;
   string owner_id = 9;
   bool is_default = 10;
   bool is_owner = 11;
-  string currency_code = 12;
+  int64 currency_id = 12;
+  string currency_code = 13;
+  string currency_symbol = 14;
 }
 
 message StoreMember {
@@ -192,6 +196,7 @@ message Store {
   google.protobuf.Timestamp last_updated_at = 5;
   int32 items_count = 6;
   StoreTargets targets = 7;
+  string address = 8;
 }
 
 message GetStoreRequest {
