@@ -33,6 +33,7 @@ service StoreService {
   rpc SetDefaultStore (SetDefaultStoreRequest) returns (SetDefaultStoreResponse);
   rpc CheckStoreNameAvailable (CheckStoreNameRequest) returns (CheckStoreNameResponse);
 
+  rpc UpdateStoreName (UpdateStoreNameRequest) returns (StoreDetailResponse);
   rpc UpdateStoreTargets (UpdateStoreTargetsRequest) returns (StoreDetailResponse);
 
   rpc ListStoreTerminationReasons (ListStoreTerminationReasonsRequest) returns (ListStoreTerminationReasonsResponse);
@@ -241,6 +242,11 @@ message SetDefaultStoreRequest {
 
 message SetDefaultStoreResponse {
   bool success = 1;
+}
+
+message UpdateStoreNameRequest {
+  int64 store_id = 1;
+  string name = 2;
 }
 
 message UpdateStoreTargetsRequest {
