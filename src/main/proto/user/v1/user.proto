@@ -6,6 +6,7 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 import "common/v1/app_roles.proto";
 import "common/v1/store_roles.proto";
+import "common/v1/gender.proto";
 
 option java_multiple_files = true;
 option java_package = "com.apptorise.retail.admin.protos.v1";
@@ -19,6 +20,7 @@ service UserService {
   rpc UpdateUserName (UpdateUserNameRequest) returns (UserResponse);
   rpc UpdateUserContact (UpdateUserContactRequest) returns (UserResponse);
   rpc UpdateUserRole (UpdateUserRoleRequest) returns (UserResponse);
+  rpc UpdateUserGender (UpdateUserGenderRequest) returns (UserResponse);
 
   rpc UpdateAvatar (stream UpdateUserImageRequest) returns (UserResponse);
   rpc UpdateCover (stream UpdateUserImageRequest) returns (UserResponse);
@@ -49,6 +51,7 @@ message UserSummary {
   retail.common.v1.AppRole global_role = 7;
   google.protobuf.Timestamp created_at = 8;
   int64 default_store_id = 9;
+  retail.common.v1.Gender gender = 10;
 }
 
 message User {
@@ -66,9 +69,10 @@ message User {
   google.protobuf.Timestamp last_login_at = 12;
   google.protobuf.Timestamp updated_at = 13;
   int64 default_store_id = 14;
+  retail.common.v1.Gender gender = 15;
 
   oneof account_details {
-    StaffProfile staff = 15;
+    StaffProfile staff = 16;
   }
 }
 
@@ -81,6 +85,7 @@ message CreateUserRequest {
   optional string avatar_url = 6;
   optional string cover_url = 7;
   optional int64 default_store_id = 8;
+  retail.common.v1.Gender gender = 9;
 }
 
 message GetUserRequest {
@@ -120,6 +125,11 @@ message UpdateUserContactRequest {
 message UpdateUserRoleRequest {
   string id = 1;
   retail.common.v1.AppRole global_role = 2;
+}
+
+message UpdateUserGenderRequest {
+  string id = 1;
+  retail.common.v1.Gender gender = 2;
 }
 
 message UpdateUserImageRequest {
