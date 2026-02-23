@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package com.apptorise.retail.admin.v1;
 
+import "google/protobuf/empty.proto";
+
 option java_multiple_files = true;
 option java_package = "com.apptorise.retail.admin.protos.v1";
 
@@ -32,4 +34,8 @@ message TaxonomyConfiguration {
 
 message GetTaxonomyConfigurationsResponse {
   repeated TaxonomyConfiguration configurations = 1;
+}
+
+service ProductTaxonomyService {
+  rpc GetTaxonomyConfigurations(google.protobuf.Empty) returns (GetTaxonomyConfigurationsResponse);
 }

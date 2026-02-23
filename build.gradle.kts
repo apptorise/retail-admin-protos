@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.leroyramaphoko"
-version = "1.0.79"
+version = "1.0.80"
 
 repositories {
     mavenCentral()
