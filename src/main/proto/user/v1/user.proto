@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+package retail.users.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "common/v1/app_roles.proto";
+import "common/v1/store_roles.proto";
+import "common/v1/gender.proto";
+
+option java_multiple_files = true;
+option java_package = "com.apptorise.retail.admin.protos.v1";
+option java_outer_classname = "UserProto";
+
+service UserService {
+  rpc CreateUser (CreateUserRequest) returns (UserResponse);
+  rpc GetUserDetail (GetUserRequest) returns (UserDetailResponse);
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+
+  rpc UpdateUserName (UpdateUserNameRequest) returns (UserResponse);
+  rpc UpdateUserContact (UpdateUserContactRequest) returns (UserResponse);
+  rpc UpdateUserRole (UpdateUserRoleRequest) returns (UserResponse);
+  rpc UpdateUserGender (UpdateUserGenderRequest) returns (UserResponse);
+
+  rpc UpdateAvatar (stream UpdateUserImageRequest) returns (UserResponse);
+  rpc UpdateCover (stream UpdateUserImageRequest) returns (UserResponse);
+
+  rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty);
+}
+
+message StoreAssignment {
+  string store_id = 1;
+  string store_name = 2;
+  string department = 3;
+  string staff_number = 4;
+  retail.common.v1.StoreRole role_at_store = 5;
+}
+
+message StaffProfile {
+  string employee_id = 1;
+  repeated StoreAssignment assignments = 2;
+}
+
+message UserSummary {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string avatar_url = 5;
+  string cover_url = 6;
+  retail.common.v1.AppRole global_role = 7;
+  google.protobuf.Timestamp created_at = 8;
+  int64 default_store_id = 9;
+  retail.common.v1.Gender gender = 10;
+}
+
+message User {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string avatar_url = 5;
+  string cover_url = 6;
+  string phone_number = 7;
+  string address = 8;
+  bool is_active = 9;
+  retail.common.v1.AppRole global_role = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp last_login_at = 12;
+  google.protobuf.Timestamp updated_at = 13;
+  int64 default_store_id = 14;
+  retail.common.v1.Gender gender = 15;
+
+  oneof account_details {
+    StaffProfile staff = 16;
+  }
+}
+
+message CreateUserRequest {
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+  string phone_number = 4;
+  retail.common.v1.AppRole global_role = 5;
+  optional string avatar_url = 6;
+  optional string cover_url = 7;
+  optional int64 default_store_id = 8;
+  retail.common.v1.Gender gender = 9;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message UserResponse {
+  UserSummary user = 1;
+}
+
+message UserDetailResponse {
+  User user = 1;
+}
+
+message ListUsersRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message ListUsersResponse {
+  repeated UserSummary users = 1;
+  string next_page_token = 2;
+}
+
+message UpdateUserNameRequest {
+  string first_name = 1;
+  string last_name = 2;
+}
+
+message UpdateUserContactRequest {
+  string id = 1;
+  string phone_number = 2;
+  string address = 3;
+}
+
+message UpdateUserRoleRequest {
+  string id = 1;
+  retail.common.v1.AppRole global_role = 2;
+}
+
+message UpdateUserGenderRequest {
+  retail.common.v1.Gender gender = 1;
+}
+
+message UpdateUserImageRequest {
+  string user_id = 1;
+  bytes image_chunk = 2;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
