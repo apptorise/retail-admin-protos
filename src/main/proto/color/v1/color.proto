@@ -5,7 +5,7 @@ package retail.colors.v1;
 import "google/protobuf/timestamp.proto";
 
 option java_multiple_files = true;
-option java_package = "com.apptorise.retail.admin.protos.v1";
+option java_package = "com.apptorise.retail.color.protos.v1";
 option java_outer_classname = "ColorProto";
 
 service ColorService {
