@@ -16,31 +16,25 @@ service StoreService {
   rpc ListStores (ListStoresRequest) returns (ListStoresResponse);
   rpc ListMyStores (ListMyStoresRequest) returns (ListStoresResponse);
   rpc DeleteStore (DeleteStoreRequest) returns (DeleteStoreResponse);
-
   rpc ListStoreRoles (ListStoreRolesRequest) returns (ListStoreRolesResponse);
   rpc InviteMember (InviteMemberRequest) returns (StoreInvitation);
   rpc ListInvitations (ListInvitationsRequest) returns (ListInvitationsResponse);
   rpc ResendInvitation (ResendInvitationRequest) returns (StoreInvitation);
-
   rpc GetStoreMember (GetStoreMemberRequest) returns (StoreMember);
   rpc ListMembers (ListMembersRequest) returns (ListMembersResponse);
   rpc RemoveMember (RemoveMemberRequest) returns (DeleteStoreResponse);
-
   rpc ListMyInvitations (ListMyInvitationsRequest) returns (ListInvitationsResponse);
   rpc GetInvitationReview (GetInvitationReviewRequest) returns (StoreInvitation);
   rpc RespondToInvitation (RespondToInvitationRequest) returns (RespondToInvitationResponse);
-
   rpc SetDefaultStore (SetDefaultStoreRequest) returns (SetDefaultStoreResponse);
   rpc CheckStoreNameAvailable (CheckStoreNameRequest) returns (CheckStoreNameResponse);
-
   rpc UpdateStoreName (UpdateStoreNameRequest) returns (StoreDetailResponse);
   rpc UpdateStoreTargets (UpdateStoreTargetsRequest) returns (StoreDetailResponse);
-
   rpc ListStoreTerminationReasons (ListStoreTerminationReasonsRequest) returns (ListStoreTerminationReasonsResponse);
 }
 
 message StoreTerminationReason {
-  int32 id = 1;
+  string id = 1;
   string label = 2;
   string description = 3;
 }
@@ -79,12 +73,12 @@ message StoreMetadata {
   string description = 2;
   StoreTargets targets = 3;
   string country_iso_code = 4;
-  int64 currency_id = 5;
+  string currency_id = 5;
   string address = 6;
 }
 
 message StoreSummary {
-  int64 id = 1;
+  string id = 1;
   string name = 2;
   string merchant_id = 3;
   retail.users.v1.UserSummary owner = 4;
@@ -95,14 +89,14 @@ message StoreSummary {
   string owner_id = 9;
   bool is_default = 10;
   bool is_owner = 11;
-  int64 currency_id = 12;
+  string currency_id = 12;
   string currency_code = 13;
   string currency_symbol = 14;
 }
 
 message StoreMember {
-  int64 id = 1;
-  int64 store_id = 2;
+  string id = 1;
+  string store_id = 2;
   retail.users.v1.UserSummary user = 3;
   retail.common.v1.StoreRole role = 4;
   string department = 5;
@@ -111,8 +105,8 @@ message StoreMember {
 }
 
 message StoreInvitation {
-  int64 id = 1;
-  int64 store_id = 2;
+  string id = 1;
+  string store_id = 2;
   string store_name = 10;
   string store_logo_url = 11;
   string email = 3;
@@ -137,7 +131,7 @@ message ListStoreRolesResponse {
 }
 
 message InviteMemberRequest {
-  int64 store_id = 1;
+  string store_id = 1;
   string email = 2;
   retail.common.v1.StoreRole role = 3;
   string department = 4;
@@ -145,7 +139,7 @@ message InviteMemberRequest {
 }
 
 message ListInvitationsRequest {
-  int64 store_id = 1;
+  string store_id = 1;
 }
 
 message ListInvitationsResponse {
@@ -153,17 +147,17 @@ message ListInvitationsResponse {
 }
 
 message ResendInvitationRequest {
-  int64 id = 1;
+  string id = 1;
 }
 
 message ListMyInvitationsRequest {}
 
 message GetInvitationReviewRequest {
-  int64 id = 1;
+  string id = 1;
 }
 
 message RespondToInvitationRequest {
-  int64 invitation_id = 1;
+  string invitation_id = 1;
   bool accept = 2;
 }
 
@@ -172,12 +166,12 @@ message RespondToInvitationResponse {
 }
 
 message GetStoreMemberRequest {
-  int64 store_id = 1;
+  string store_id = 1;
   string user_id = 2;
 }
 
 message ListMembersRequest {
-  int64 store_id = 1;
+  string store_id = 1;
 }
 
 message ListMembersResponse {
@@ -185,12 +179,12 @@ message ListMembersResponse {
 }
 
 message RemoveMemberRequest {
-  int64 store_id = 1;
+  string store_id = 1;
   string user_id = 2;
 }
 
 message Store {
-  int64 id = 1;
+  string id = 1;
   StoreSummary summary = 2;
   string description = 3;
   google.protobuf.Timestamp created_at = 4;
@@ -201,7 +195,7 @@ message Store {
 }
 
 message GetStoreRequest {
-  int64 id = 1;
+  string id = 1;
 }
 
 message StoreResponse {
@@ -228,8 +222,8 @@ message ListStoresResponse {
 }
 
 message DeleteStoreRequest {
-  int64 id = 1;
-  int32 reason_id = 2;
+  string id = 1;
+  string reason_id = 2;
 }
 
 message DeleteStoreResponse {
@@ -237,7 +231,7 @@ message DeleteStoreResponse {
 }
 
 message SetDefaultStoreRequest {
-  int64 store_id = 1;
+  string store_id = 1;
 }
 
 message SetDefaultStoreResponse {
@@ -245,11 +239,11 @@ message SetDefaultStoreResponse {
 }
 
 message UpdateStoreNameRequest {
-  int64 store_id = 1;
+  string store_id = 1;
   string name = 2;
 }
 
 message UpdateStoreTargetsRequest {
-  int64 store_id = 1;
+  string store_id = 1;
   StoreTargets targets = 2;
 }

@@ -24,12 +24,13 @@ enum ProductTaxonomyType {
 }
 
 message TaxonomyConfiguration {
-  ProductTaxonomyType taxonomy_type = 1;
-  string display_label = 2;
-  string display_description = 3;
-  bool supports_color_variants = 4;
-  bool supports_size_variants = 5;
-  string illustration_url = 6;
+  string id = 1;
+  ProductTaxonomyType taxonomy_type = 2;
+  string display_label = 3;
+  string display_description = 4;
+  bool supports_color_variants = 5;
+  bool supports_size_variants = 6;
+  string illustration_url = 7;
 }
 
 message GetTaxonomyConfigurationsResponse {

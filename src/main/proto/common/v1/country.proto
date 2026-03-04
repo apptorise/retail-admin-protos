@@ -15,7 +15,7 @@ service CountryService {
 }
 
 message Currency {
-  int64 id = 1;
+  string id = 1;
   string code = 2;
   string name = 3;
   string symbol = 4;
@@ -23,7 +23,7 @@ message Currency {
 }
 
 message Country {
-  int64 id = 1;
+  string id = 1;
   string name = 2;
   string iso_code = 3;
   repeated string dialing_codes = 4;
@@ -38,7 +38,7 @@ message ListCountriesResponse {
 }
 
 message GetCountryRequest {
-  int64 id = 1;
+  string id = 1;
 }
 
 message GetCountryByIsoCodeRequest {

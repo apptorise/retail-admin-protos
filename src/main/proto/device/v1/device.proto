@@ -17,7 +17,7 @@ service DeviceService {
 }
 
 message DeviceSummary {
-  int64 id = 1;
+  string id = 1;
   string fingerprint = 2;
   string model = 3;
   string manufacturer = 4;
@@ -27,7 +27,7 @@ message DeviceSummary {
 }
 
 message Device {
-  int64 id = 1;
+  string id = 1;
   DeviceSummary summary = 2;
   string os_version = 3;
   retail.users.v1.UserSummary owner = 4;
@@ -50,7 +50,7 @@ message ListDevicesResponse {
 }
 
 message GetDeviceRequest {
-  int64 id = 1;
+  string id = 1;
 }
 
 message DeviceDetailResponse {
@@ -58,7 +58,7 @@ message DeviceDetailResponse {
 }
 
 message DeleteDeviceRequest {
-  int64 id = 1;
+  string id = 1;
 }
 
 message DeleteDeviceResponse {

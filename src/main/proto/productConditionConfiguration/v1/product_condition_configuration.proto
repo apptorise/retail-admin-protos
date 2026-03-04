@@ -13,10 +13,11 @@ service ProductConditionService {
 }
 
 message ProductConditionConfiguration {
-  retail.common.v1.ProductCondition condition = 1;
-  string label = 2;
-  string description = 3;
-  int32 priority = 4;
+  string id = 1;
+  retail.common.v1.ProductCondition condition = 2;
+  string label = 3;
+  string description = 4;
+  int32 priority = 5;
 }
 
 message GetProductConditionsResponse {
