@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package com.apptorise.retail.admin.v1;
+
+option java_multiple_files = true;
+option java_package = "com.apptorise.retail.admin.protos.v1";
+
+enum UnitDimension {
+  UNIT_DIMENSION_UNSPECIFIED = 0;
+  UNIT_DIMENSION_MASS = 1;
+  UNIT_DIMENSION_VOLUME = 2;
+  UNIT_DIMENSION_LENGTH = 3;
+  UNIT_DIMENSION_AREA = 4;
+  UNIT_DIMENSION_DISCRETE = 5;
+  UNIT_DIMENSION_DIGITAL = 6;
+  UNIT_DIMENSION_CURRENCY = 7;
+}
+
+message MeasurementUnit {
+  string id = 1;
+  string label = 2;
+  UnitDimension dimension = 3;
+  bool is_decimal_supported = 4;
+}
+
+message ProductMeasurement {
+  double value = 1;
+  string unit_id = 2;
+}
