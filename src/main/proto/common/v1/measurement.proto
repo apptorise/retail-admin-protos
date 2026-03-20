@@ -14,17 +14,20 @@ enum UnitDimension {
   UNIT_DIMENSION_DISCRETE = 5;
   UNIT_DIMENSION_DIGITAL = 6;
   UNIT_DIMENSION_CURRENCY = 7;
-  // Added for Universal Store Support
-  UNIT_DIMENSION_POWER = 8;     // Watts (W), Volts (V), Amps (A)
-  UNIT_DIMENSION_FREQUENCY = 9; // Hertz (Hz), Gigahertz (GHz)
-  UNIT_DIMENSION_TIME = 10;      // Hours (h), Minutes (min) for service-based items
+  UNIT_DIMENSION_POWER = 8;
+  UNIT_DIMENSION_FREQUENCY = 9;
+  UNIT_DIMENSION_TIME = 10;
 }
 
 message MeasurementUnit {
   string id = 1;
-  string label = 2;
-  UnitDimension dimension = 3;
-  bool is_decimal_supported = 4;
+  string label = 2;               // e.g., "Ah"
+  string full_name = 3;           // e.g., "Ampere Hours"
+  string display_description = 4; // e.g., "Used for battery capacity"
+  UnitDimension dimension = 5;    // For grouping in UI
+  bool is_decimal_supported = 6;
+  double conversion_factor = 7;   // For normalization/reporting
+  int32 sort_order = 8;           // For logical ordering (XS before S)
 }
 
 message ProductMeasurement {

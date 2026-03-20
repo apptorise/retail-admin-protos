@@ -3,8 +3,7 @@ syntax = "proto3";
 package com.apptorise.retail.admin.v1;
 
 import "google/protobuf/empty.proto";
-// Import the sibling file
-import "common/v1/measurement.proto";
+import "common/v1/measurement.proto"; // Assuming this is where UnitDimension/MeasurementUnit live
 
 option java_multiple_files = true;
 option java_package = "com.apptorise.retail.admin.protos.v1";
@@ -34,9 +33,12 @@ message TaxonomyConfiguration {
   bool supports_size_variants = 6;
   string illustration_url = 7;
 
-  // New fields linking to measurement.proto
-  repeated UnitDimension supported_dimensions = 8;
-  repeated MeasurementUnit suggested_units = 9;
+  // Matches your entity: useful for small UI icons in lists
+  string icon_identifier = 8;
+
+  // Linking to measurement.proto
+  repeated UnitDimension supported_dimensions = 9;
+  repeated MeasurementUnit suggested_units = 10;
 }
 
 message GetTaxonomyConfigurationsResponse {
