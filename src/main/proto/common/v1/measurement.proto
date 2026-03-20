@@ -14,6 +14,10 @@ enum UnitDimension {
   UNIT_DIMENSION_DISCRETE = 5;
   UNIT_DIMENSION_DIGITAL = 6;
   UNIT_DIMENSION_CURRENCY = 7;
+  // Added for Universal Store Support
+  UNIT_DIMENSION_POWER = 8;     // Watts (W), Volts (V), Amps (A)
+  UNIT_DIMENSION_FREQUENCY = 9; // Hertz (Hz), Gigahertz (GHz)
+  UNIT_DIMENSION_TIME = 10;      // Hours (h), Minutes (min) for service-based items
 }
 
 message MeasurementUnit {
