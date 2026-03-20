@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package retail.admin.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "com.apptorise.retail.admin.protos.v1";
+option java_outer_classname = "ApiLogProto";
+
+service ApiLogService {
+  rpc GetApiLogs (GetApiLogsRequest) returns (GetApiLogsResponse);
+  rpc GetLogDetails (GetLogDetailsRequest) returns (ApiLogDetailResponse);
+}
+
+message GetApiLogsRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+  string service_filter = 3;
+}
+
+message GetApiLogsResponse {
+  repeated ApiLogSummary logs = 1;
+  int32 total_count = 2;
+}
+
+message ApiLogSummary {
+  string id = 1;
+  google.protobuf.Timestamp call_time = 2;
+  string service_name = 3;
+  string endpoint = 4;
+  string method = 5;
+  int32 status_code = 6;
+  float response_time = 7;
+  float req_size = 8;
+  float resp_size = 9;
+  string user_id = 10;
+}
+
+message GetLogDetailsRequest {
+  string log_id = 1;
+}
+
+message ApiLog {
+  ApiLogSummary summary = 1;
+  string request_body = 2;
+  string response_body = 3;
+  map<string, string> headers = 4;
+  string error_stack_trace = 5;
+}
+
+message ApiLogDetailResponse {
+  ApiLog log = 1;
+}
